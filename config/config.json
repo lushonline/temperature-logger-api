@@ -1,7 +1,7 @@
 {
   "development": {
     "dialect": "sqlite",
-    "storage": "./data/database_dev.sqlite3"
+    "storage": "/home/weather/github/temperature-logger/data/database_dev.sqlite3"
   },
   "test": {
     "dialect": "sqlite",
@@ -9,6 +9,6 @@
   },
   "production": {
     "dialect": "sqlite",
-    "storage": "./data/database.sqlite3"
+    "storage": "/home/weather/github/temperature-logger/data/database.sqlite3"
   }
 }
