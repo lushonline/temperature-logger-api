@@ -77,14 +77,14 @@
                 label += ': ';
               }
 
-              label += Math.floor(tooltipItem.yLabel);
+              label += tooltipItem.yLabel.toFixed(1);
               const current = `${label}${units}`;
-              const min = `Min: ${Math.floor(
-                data.datasets[tooltipItem.datasetIndex].stats.min
-              )}${units}`;
-              const max = `Max: ${Math.floor(
-                data.datasets[tooltipItem.datasetIndex].stats.max
-              )}${units}`;
+              const min = `Min: ${
+                data.datasets[tooltipItem.datasetIndex].stats.min.toFixed(1)
+              }${units}`;
+              const max = `Max: ${
+                data.datasets[tooltipItem.datasetIndex].stats.max.toFixed(1)
+              }${units}`;
               return `${current} ${min} ${max}`;
             },
           },
