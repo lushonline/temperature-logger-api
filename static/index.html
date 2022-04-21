@@ -13,9 +13,16 @@
 
 <body>
   <div class="container">
-    <h1>Temperature Data</small></h1>
-    <div class="panel panel-primary">
-      <div class="panel-body" id="latestResults"></div>
+    <div class="my-5">
+      <h1>Temperature Data</small></h1>
+    </div>
+    <div class="my-5">
+      <div id="latestResults"></div>
+    </div>
+    <div id="controls" class="my-5">
+      <button id="refreshDataBtn" type="button" class="btn btn-primary">
+        Refresh
+      </button>
     </div>
   </div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -29,15 +36,20 @@
   <script>
     $(document).ready(function () {
 
+      $('#refreshDataBtn').click(function () {
+        getLatest();
+      });
+
       google.charts.load('current', { 'packages': ['gauge'] });
-      google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Temperature', 0],
-        ]);
+      async function getLatest() {
+        await axios
+          .get('/api/readings/28-0121132c2250/latest').then(function (response) {
+            drawChart(response.data.value)
+          });
+      };
 
+      function drawChart(value) {
         var options = {
           width: 240, height: 240,
           min: -10, max: 30,
@@ -45,17 +57,16 @@
           minorTicks: 1
         };
 
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Temperature', value],
+        ]);
+
         var chart = new google.visualization.Gauge(document.getElementById('latestResults'));
-
         chart.draw(data, options);
-
-        setInterval(async function () {
-          const response = await axios
-            .get('/api/readings/28-0121132c2250/latest');
-          data.setValue(0, 1, response.data.value);
-          chart.draw(data, options);
-        }, 1000);
       }
+
+      getLatest();
 
     });
   </script>

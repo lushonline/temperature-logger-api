@@ -1,6 +1,6 @@
 {
-  "name": "temperature-logger",
-  "description": "Log from DS18B20 sensor to sqlite db",
+  "name": "temperature-logger-api",
+  "description": "Display data from temperature-logger database",
   "version": "0.0.0",
   "main": "server.js",
   "license": "MIT",
