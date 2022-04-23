@@ -7,6 +7,8 @@ const consola = require('consola');
 
 const db = require('./models');
 
+const readings = require('./routes/readings');
+
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -14,54 +16,8 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/static')));
 
-app.get('/api/readings', (req, res) => {
-  // TODO: find all the readings for specified id
-  db.Reading.findAll({
-    order: [['id', 'DESC']],
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || 'Some error occurred while retrieving readings.',
-      });
-    });
-});
-
-app.get('/api/readings/:sensorid', (req, res) => {
-  const sensorId = req.params.sensorid;
-  // TODO: find all the readings for specified id
-  db.Reading.findAll({
-    order: [['id', 'DESC']],
-    where: { sensorId },
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || 'Some error occurred while retrieving readings.',
-      });
-    });
-});
-
-app.get('/api/readings/:sensorid/latest', (req, res) => {
-  const sensorId = req.params.sensorid;
-  // TODO: find the latest reading for specified id
-  db.Reading.findOne({
-    order: [['id', 'DESC']],
-    where: { sensorId },
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || 'Some error occurred while retrieving readings.',
-      });
-    });
-});
+// register routes
+app.use('/api/readings', readings);
 
 db.sequelize
   .authenticate({
