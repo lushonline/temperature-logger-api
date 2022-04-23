@@ -79,12 +79,10 @@
 
               label += tooltipItem.yLabel.toFixed(1);
               const current = `${label}${units}`;
-              const min = `Min: ${
-                data.datasets[tooltipItem.datasetIndex].stats.min.toFixed(1)
-              }${units}`;
-              const max = `Max: ${
-                data.datasets[tooltipItem.datasetIndex].stats.max.toFixed(1)
-              }${units}`;
+              const min = `Min: ${data.datasets[tooltipItem.datasetIndex].stats.min.toFixed(1)
+                }${units}`;
+              const max = `Max: ${data.datasets[tooltipItem.datasetIndex].stats.max.toFixed(1)
+                }${units}`;
               return `${current} ${min} ${max}`;
             },
           },
@@ -185,7 +183,7 @@
   async function getData(cursor) {
     return new Promise(async function (resolve, reject) {
       const axiosConfig = {
-        url: '/api/readings/28-0121132c2250',
+        url: '/api/readings/28-0121132c2250/today',
         method: 'get',
         headers: {
           Accept: 'application/json',
