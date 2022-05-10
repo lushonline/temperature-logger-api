@@ -80,18 +80,18 @@ router.get('/:sensorId/today', (req, res) => {
     });
 });
 
-router.get('/:sensorId/:since', (req, res) => {
-  const { sensorId, since } = req.params;
+router.get('/:sensorId/:start/:end?', (req, res) => {
+  const { sensorId, start, end } = req.params;
   // TODO: find todays data for specified id
   const { Op } = db.Sequelize;
-  const DATE_START = moment.tz(since, 'Z').startOf('day');
-  const NOW = moment.tz(since, 'Z').endOf('day');
+  const DATE_START = moment.tz(start, 'Z').startOf('day');
+  const DATE_END = end ? moment.tz(end, 'Z').endOf('day') : moment.tz(start, 'Z').endOf('day');
 
   db.Reading.findAll({
     order: [['id', 'DESC']],
     where: {
       createdAt: {
-        [Op.between]: [DATE_START, NOW],
+        [Op.between]: [DATE_START, DATE_END],
       },
       sensorId,
     },
