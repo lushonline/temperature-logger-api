@@ -12,64 +12,15 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="my-5">
-      <h1>Temperature Data</small></h1>
-    </div>
-    <div class="my-5">
-      <div id="latestResults"></div>
-    </div>
-    <div id="controls" class="my-5">
-      <button id="refreshDataBtn" type="button" class="btn btn-primary">
-        Refresh
-      </button>
-    </div>
+  <div id="controls" class="my-5">
+    <a href="gauge.html" class="btn btn-primary btn-lg active" role="button">Current Temperature</a>
+    <a href="graph.html" class="btn btn-primary btn-lg active" role="button">Historic Temperatures</a>
   </div>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  </div>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script>
-    $(document).ready(function () {
-
-      $('#refreshDataBtn').click(function () {
-        getLatest();
-      });
-
-      google.charts.load('current', { 'packages': ['gauge'] });
-
-      async function getLatest() {
-        await axios
-          .get('/api/readings/28-0121132c2250/latest').then(function (response) {
-            drawChart(response.data.value)
-          });
-      };
-
-      function drawChart(value) {
-        var options = {
-          width: 240, height: 240,
-          min: -10, max: 30,
-          redFrom: -10, redTo: 0,
-          minorTicks: 1
-        };
-
-        var data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Temperature', value],
-        ]);
-
-        var chart = new google.visualization.Gauge(document.getElementById('latestResults'));
-        chart.draw(data, options);
-      }
-
-      getLatest();
-
-    });
-  </script>
 </body>
 
 </html>
