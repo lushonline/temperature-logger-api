@@ -1,7 +1,7 @@
 {
   "name": "temperature-logger-api",
   "description": "Display data from temperature-logger database",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "server.js",
   "license": "MIT",
   "repository": {
