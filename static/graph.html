@@ -46,6 +46,9 @@
   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script>
+  var myPlot = null;
+
+
   var selectorOptions = {
     buttons: [{
       step: 'month',
@@ -59,6 +62,10 @@
       step: 'year',
       count: 1,
       label: '1y'
+    },{
+      step: 'day',
+      count: 7,
+      label: '7d'
     }, {
       step: 'day',
       count: 1,
@@ -159,7 +166,7 @@
             hoverinfo: 'x+y',
           }
 
-          Plotly.newPlot('myChart', [result], layout, config);
+          myPlot = Plotly.newPlot('myChart', [result], layout, config);
         } else {
           $('#loadingMessage').addClass('d-none');
           $('#noDataMessage').removeClass('d-none');
