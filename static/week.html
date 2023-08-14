@@ -44,29 +44,14 @@
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
+  crossorigin="anonymous"></script>
 <script>
   var myPlot = null;
 
 
   var selectorOptions = {
     buttons: [{
-      step: 'year',
-      count: 1,
-      label: '1y'
-    }, {
-      step: 'month',
-      count: 6,
-      label: '6m'
-    }, {
-      step: 'month',
-      count: 1,
-      label: '1m'
-    }, {
-      step: 'day',
-      count: 7,
-      label: '7d'
-    }, {
       step: 'day',
       count: 1,
       label: '1d'
@@ -122,8 +107,12 @@
 
   async function getData(cursor) {
     return new Promise(async function (resolve, reject) {
+
+      const WEEK_START = moment().utc().subtract(7, 'days').startOf('day').format();
+      const NOW = moment().utc().endOf('day').format();
+
       const axiosConfig = {
-        url: '/api/readings/28-0121132c2250',
+        url: '/api/readings/28-0121132c2250/' + WEEK_START + '/' + NOW,
         method: 'get',
         headers: {
           Accept: 'application/json',
