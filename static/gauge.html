@@ -49,33 +49,6 @@
     responsive: true,
   }
 
-  var data = [
-    {
-      type: "indicator",
-      value: null,
-      gauge: { axis: { visible: true, range: [-10, 30] } },
-    }
-  ];
-
-  var layout = {
-    width: 600,
-    height: 400,
-    margin: { t: 25, b: 25, l: 25, r: 25 },
-    template: {
-      data: {
-        indicator: [
-          {
-            title: { text: "Temperature" },
-            mode: "number+gauge",
-            number: {
-              suffix: " &deg;C"
-            }
-          }
-        ]
-      }
-    }
-  };
-
   async function getData(cursor) {
     return new Promise(async function (resolve, reject) {
       const axiosConfig = {
@@ -105,7 +78,6 @@
         Plotly.animate('myChart', {
           data: [{ value: data.value }],
           traces: [0],
-          layout: {}
         }, {
           transition: {
             duration: 0,
@@ -121,7 +93,6 @@
         Plotly.animate('myChart', {
           data: [{ value: 0 }],
           traces: [0],
-          layout: {}
         }, {
           transition: {
             duration: 0,
@@ -145,7 +116,6 @@
       {
         type: "indicator",
         value: 0,
-        gauge: { axis: { visible: true, range: [-10, 30] } },
       }
     ];
 
@@ -161,7 +131,31 @@
               mode: "number+gauge",
               number: {
                 suffix: " &deg;C"
-              }
+              },
+              gauge: {
+                axis: {
+                  visible: true,
+                  range: [-10, 30],
+                },
+                steps: [
+                  {
+                    range: [-10, 0],
+                    color: 'lightgray',
+                    thickness: 1
+                  },
+                  {
+                    range: [0, 30],
+                    color: 'gray',
+                    thickness: 1
+                  },
+                  {
+                    range: [0, 16],
+                    color: 'green',
+                    thickness: 1
+                  }
+
+                ]
+              },
             }
           ]
         }
